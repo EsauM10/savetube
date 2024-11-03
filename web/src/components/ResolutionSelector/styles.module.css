@@ -1,0 +1,41 @@
+.container {
+  display: flex;
+}
+
+.container > button {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 5px 0 0 5px;
+  background-color: var(--primary);
+  font-size: 26px;
+  color: var(--text);
+  cursor: pointer;
+}
+
+.container > button:hover {
+  opacity: 0.9;
+}
+
+.container > select {
+  height: 40px;
+  padding: 0 5px 0 5px;
+  background: none;
+  border-radius: 0 5px 5px 0;
+  border: 2px solid var(--border);
+  outline: none;
+  color: var(--text);
+  font-size: 16px;
+  font-weight: var(--font-medium);
+}
+
+.container > select:focus {
+  border-color: var(--primary);
+}
+
+.container > select > option {
+  color: black;
+}
