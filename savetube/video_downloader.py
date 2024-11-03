@@ -69,14 +69,13 @@ class VideoDownloader:
         audio_stream = self.youtube.streams.get_audio_only()
         
         if(audio_stream):
-            return video_stream.filesize_mb + audio_stream.filesize_mb
+            return round(video_stream.filesize_mb + audio_stream.filesize_mb, 2)
         
         return video_stream.filesize_mb
     
 
     def __download_video(self, resolution: int, output_path: str, filename: str):
         stream = self.resolutions[resolution]
-        print(f'Vidio:> {stream.filesize_mb} MB')
         stream.download(output_path, filename)
 
     def __download_audio(self, output_path: str, filename: str):
@@ -86,7 +85,6 @@ class VideoDownloader:
         audio_stream = self.youtube.streams.get_audio_only()
         
         if(audio_stream):
-            print(f'Audio:> {audio_stream.filesize_mb} MB')
             audio_stream.download(output_path, filename)
         
     def __merge_streams(self, audio_path: str, video_path: str):
@@ -117,6 +115,7 @@ class VideoDownloader:
             self.__merge_streams(audio_path, video_path)
         
         tempdir.cleanup()
+        self.__resolutions = None
     
 
     def load(self, url: str, on_progress: OnProgressCallback | None = None):

@@ -23,10 +23,10 @@ def search(data: dict[str, str]):
 @app.on
 def download(resolution: int):
     try:
-        app.emit('progress', randint(1, 50))
+        app.emit('progress', randint(5, 50))
         time.sleep(1)
         youtube.download(resolution)
-        time.sleep(1)
+        time.sleep(2)
         app.emit('progress', 100)
     except Exception as ex:
         print(ex)
