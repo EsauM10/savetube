@@ -11,10 +11,7 @@ youtube = VideoDownloader()
 @app.on
 def search(data: dict[str, str]):
     try:
-        youtube.load(
-            url=data['url']
-        )
-        
+        youtube.load(url=data['url'])
         app.emit('search-response', youtube.metadata)
     except Exception as ex:
         print(ex)
@@ -23,11 +20,10 @@ def search(data: dict[str, str]):
 @app.on
 def download(resolution: int):
     try:
-        app.emit('progress', randint(5, 50))
-        time.sleep(1)
-        youtube.download(resolution)
-        time.sleep(2)
-        app.emit('progress', 100)
+        youtube.download(
+            resolution,
+            on_complete=lambda: app.emit('progress', 100)
+        )
     except Exception as ex:
         print(ex)
 

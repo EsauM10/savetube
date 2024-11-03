@@ -8,6 +8,7 @@ from pytubefix import YouTube, Stream
 
 
 OnProgressCallback = Callable[[Stream, bytes, int], None]
+OnCompleteCallback = Callable[[], None]
 
 DOWNLOAD_PATH = os.path.join(Path.home(), 'Downloads')
 
@@ -99,7 +100,7 @@ class VideoDownloader:
         ffmpeg.output(audio_stream, video_stream, output_path).run()
 
 
-    def download(self, resolution: int):
+    def download(self, resolution: int, on_complete: OnCompleteCallback | None = None):
         tempdir = tempfile.TemporaryDirectory()
 
         audio_filename = 'audio.mp4'
@@ -115,11 +116,16 @@ class VideoDownloader:
             self.__merge_streams(audio_path, video_path)
         
         tempdir.cleanup()
-        self.__resolutions = None
+        
+        if(on_complete):
+            on_complete()
+        
     
 
     def load(self, url: str, on_progress: OnProgressCallback | None = None):
+        self.__resolutions = None
         self.youtube = YouTube(
             url=url,
             on_progress_callback=on_progress,
         )
+
