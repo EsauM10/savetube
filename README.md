@@ -6,6 +6,10 @@ This is a Python + React + Vite desktop app made with [Oxygenio](https://github.
 ![app](https://github.com/user-attachments/assets/e92d9916-6e5b-4e7c-a1fa-e13a24d2b1a3)
 
 ## Requirements
+> [!IMPORTANT]  
+> Before using SaveTube, FFmpeg must be installed and accessible via the $PATH environment variable.
+
+* [FFmpeg](https://www.ffmpeg.org/download.html)
 
 ## Building (Windows only)
 Clone this repository:
