@@ -11,6 +11,13 @@ OnCompleteCallback = Callable[[], None]
 
 DOWNLOAD_PATH = os.path.join(Path.home(), 'Downloads')
 
+def clear_symbols(filename: str) -> str:
+    for char in ['\\', '/', ':', '*', '"', '?', '<', '>', '|']:
+        filename = filename.replace(char, "")
+    return filename
+    
+
+
 class VideoDownloader:
     def __init__(self, output_path: str = DOWNLOAD_PATH) -> None:
         self.youtube: YouTube | None = None
@@ -53,7 +60,7 @@ class VideoDownloader:
             raise RuntimeError('Youtube object was not initialized')
         
         if(not self.__resolutions):
-            streams = self.youtube.streams.filter(mime_type='video/mp4')
+            streams = self.youtube.streams.filter(mime_type='video/mp4', adaptive=True)
             self.__resolutions = {
                 int(stream.resolution[0:-1]): stream
                 for stream in streams
@@ -92,7 +99,7 @@ class VideoDownloader:
             raise RuntimeError('Youtube object was not initialized')
         
         title = f'{self.youtube.title}.mp4'
-        output_path = os.path.join(self.output_path, title)
+        output_path = os.path.join(self.output_path, clear_symbols(title))
 
         run_command([
             'ffmpeg', 
