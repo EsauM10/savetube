@@ -3,9 +3,8 @@ from pathlib import Path
 import tempfile
 from typing import Any, Callable
 
-import ffmpeg
 from pytubefix import YouTube, Stream
-
+from oxygenio.helpers import run_command
 
 OnProgressCallback = Callable[[Stream, bytes, int], None]
 OnCompleteCallback = Callable[[], None]
@@ -87,20 +86,23 @@ class VideoDownloader:
         
         if(audio_stream):
             audio_stream.download(output_path, filename)
-        
+    
     def __merge_streams(self, audio_path: str, video_path: str):
         if(not self.youtube):
             raise RuntimeError('Youtube object was not initialized')
         
         title = f'{self.youtube.title}.mp4'
         output_path = os.path.join(self.output_path, title)
-        audio_stream = ffmpeg.input(audio_path)
-        video_stream = ffmpeg.input(video_path)
+
+        run_command([
+            'ffmpeg', 
+            '-i', audio_path, '-i', video_path,
+            '-c:a', 'copy', '-c:v', 'h264', 
+            output_path
+        ])
         
-        ffmpeg.output(audio_stream, video_stream, output_path).run()
 
-
-    def download(self, resolution: int, on_complete: OnCompleteCallback | None = None):
+    def download(self, resolution: int):
         tempdir = tempfile.TemporaryDirectory()
 
         audio_filename = 'audio.mp4'
@@ -114,13 +116,9 @@ class VideoDownloader:
         if(not stream.is_progressive):
             self.__download_audio(tempdir.name, filename=audio_filename)
             self.__merge_streams(audio_path, video_path)
-        
+
         tempdir.cleanup()
-        
-        if(on_complete):
-            on_complete()
-        
-    
+
 
     def load(self, url: str, on_progress: OnProgressCallback | None = None):
         self.__resolutions = None

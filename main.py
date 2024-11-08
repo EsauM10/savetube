@@ -1,5 +1,3 @@
-from random import randint
-import time
 from oxygenio import Oxygenio
 
 from savetube.video_downloader import VideoDownloader 
@@ -20,10 +18,8 @@ def search(data: dict[str, str]):
 @app.on
 def download(resolution: int):
     try:
-        youtube.download(
-            resolution,
-            on_complete=lambda: app.emit('progress', 100)
-        )
+        youtube.download(resolution)
+        app.emit('progress', 100)
     except Exception as ex:
         print(ex)
 

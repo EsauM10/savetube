@@ -1,3 +1,2 @@
 pytubefix
-ffmpeg-python
 git+https://github.com/EsauM10/oxygenio.git
