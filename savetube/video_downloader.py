@@ -5,17 +5,12 @@ from typing import Any, Callable
 
 from pytubefix import YouTube, Stream
 from oxygenio.helpers import run_command
+from savetube.helpers import get_valid_filename
 
 OnProgressCallback = Callable[[Stream, bytes, int], None]
 OnCompleteCallback = Callable[[], None]
 
 DOWNLOAD_PATH = os.path.join(Path.home(), 'Downloads')
-
-def clear_symbols(filename: str) -> str:
-    for char in ['\\', '/', ':', '*', '"', '?', '<', '>', '|']:
-        filename = filename.replace(char, "")
-    return filename
-    
 
 
 class VideoDownloader:
@@ -98,8 +93,11 @@ class VideoDownloader:
         if(not self.youtube):
             raise RuntimeError('Youtube object was not initialized')
         
-        title = f'{self.youtube.title}.mp4'
-        output_path = os.path.join(self.output_path, clear_symbols(title))
+        title = get_valid_filename(
+            filename=f'{self.youtube.title}.mp4',
+            output_dir=DOWNLOAD_PATH
+        ) 
+        output_path = os.path.join(self.output_path, title)
 
         run_command([
             'ffmpeg', 
