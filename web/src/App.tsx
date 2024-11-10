@@ -11,7 +11,7 @@ function App() {
 
   const handleOnSearch = (url: string) => {
     setVideoData(null);
-    socket.emit("search", { url });
+    socket.emit("search", url);
     setIsLoading(true);
   };
 

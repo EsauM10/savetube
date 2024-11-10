@@ -1,5 +1,4 @@
 from random import randint
-from threading import Thread
 
 from oxygenio import Oxygenio
 from savetube import VideoDownloader 
@@ -13,19 +12,18 @@ def download_video(resolution: int):
 
 
 @app.on
-def search(data: dict[str, str]):
-    try:
-        youtube.load(url=data['url'])
-        app.emit('search-response', youtube.metadata)
-    except Exception as ex:
-        print(ex)
+def search(url: str):
+    youtube.load(url)
+    app.emit('search-response', youtube.metadata)
 
 
 @app.on
 def download(resolution: int):
     app.emit('progress', randint(5, 50))
-    Thread(target=download_video, args=[resolution]).start()
-
+    app.websocket.start_background_task(
+        download_video,
+        resolution
+    )
 
 
 if(__name__=='__main__'):
