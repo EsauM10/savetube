@@ -52,6 +52,14 @@ body, #root {
   padding-top: 40px;
 }
 
+.line-clamp {
+  display: -webkit-box;
+  line-clamp: 2;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;  
+  overflow: hidden;
+}
+
 .loader {
   border: 4px solid var(--border);
   border-top: 4px solid var(--primary);
@@ -65,3 +73,4 @@ body, #root {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
+

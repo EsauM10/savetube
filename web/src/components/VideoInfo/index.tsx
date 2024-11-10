@@ -47,7 +47,7 @@ export default function VideoInfo({ data }: VideoInfoProps) {
 
       <section>
         <div>
-          <h1>{data.title}</h1>
+          <h1 className="line-clamp">{data.title}</h1>
           <h3>
             <i className="ph ph-timer"></i>
             {data.duration}
