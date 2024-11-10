@@ -1,1 +1,1 @@
-from savetube.video_downloader import VideoDownloader
+from savetube.downloader import VideoDownloader

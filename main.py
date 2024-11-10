@@ -2,8 +2,7 @@ from random import randint
 from threading import Thread
 
 from oxygenio import Oxygenio
-
-from savetube.video_downloader import VideoDownloader 
+from savetube import VideoDownloader 
 
 app = Oxygenio()
 youtube = VideoDownloader()
