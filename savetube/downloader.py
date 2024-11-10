@@ -102,7 +102,7 @@ class VideoDownloader:
         run_command([
             'ffmpeg', 
             '-i', audio_path, '-i', video_path,
-            '-c:a', 'copy', '-c:v', 'h264', 
+            '-c:a', 'copy', '-c:v', 'copy', 
             output_path
         ])
         
