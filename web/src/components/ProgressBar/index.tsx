@@ -1,10 +1,12 @@
 import styles from "./styles.module.css";
 
 interface ProgressBarProps {
+  downloadPath: string;
   progressValue: number;
 }
 
 export default function ProgressBar({
+  downloadPath,
   progressValue,
 }: ProgressBarProps) {
   const getWidth = () => {
@@ -14,7 +16,8 @@ export default function ProgressBar({
   return (
     <div className={styles.container}>
       <div>
-        <p>{progressValue}%</p>
+        <p>{downloadPath}</p>
+        <span>{progressValue}%</span>
       </div>
 
       <span style={{ width: getWidth() }}></span>

@@ -9,7 +9,7 @@ interface VideoInfoProps {
   data: VideoInfoDto;
 }
 
-export default function VideoInfo({ data }: VideoInfoProps) {
+export default function VideoInfoCard({ data }: VideoInfoProps) {
   const [isDownloading, setIsDownloading] = useState(false);
   const [resolution, setResolution] = useState<VideoResolution>(data.resolutions[0]);
   const [downloadProgress, setDownloadProgress] = useState(0)
@@ -59,7 +59,7 @@ export default function VideoInfo({ data }: VideoInfoProps) {
         </div>
 
         {isDownloading ? (
-          <ProgressBar  progressValue={downloadProgress} />
+          <ProgressBar downloadPath={data.downloadPath} progressValue={downloadProgress} />
         ) : (
           <ResolutionSelector
             selected={resolution}

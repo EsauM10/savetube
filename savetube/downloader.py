@@ -46,6 +46,7 @@ class VideoDownloader:
             'thumbnailUrl': self.youtube.thumbnail_url,
             'title': self.youtube.title,
             'duration': self.formatted_duration,
+            'downloadPath': DOWNLOAD_PATH,
             'resolutions': resolutions
         }
     

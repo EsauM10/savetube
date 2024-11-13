@@ -7,6 +7,7 @@ type VideoInfoDto = {
   thumbnailUrl: string;
   title: string;
   duration: string;
+  downloadPath: string;
   resolutions: VideoResolution[];
 };
 

@@ -5,6 +5,7 @@ import { socket } from "./hooks/useOxygen";
 import VideoInfo from "./components/VideoInfo";
 import { VideoInfoDto } from "./entities";
 
+
 function App() {
   const [videoData, setVideoData] = useState<VideoInfoDto | null>(null);
   const [isLoading, setIsLoading] = useState(false);

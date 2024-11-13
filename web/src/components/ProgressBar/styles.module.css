@@ -15,10 +15,16 @@
   font-size: 20px;
 }
 
-.container > div > p {
+.container > div {
+  display: flex;
+  justify-content: space-between;
   color: var(--text);
   font-size: 15px;
   font-weight: var(--font-medium);
+}
+
+.container > div > p {
+  color: var(--gray-100);
 }
 
 .container > span {
