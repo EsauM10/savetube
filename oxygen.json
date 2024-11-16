@@ -5,5 +5,9 @@
     "buildCommand": "npm --prefix=web run build",
     "frontendApp": "web",
     "distFolder": "dist",
-    "staticFolder": "assets"
+    "staticFolder": "assets",
+    "window": {
+        "title": "SaveTube",
+        "console": false
+    }
 }
