@@ -8,6 +8,10 @@
     "staticFolder": "assets",
     "window": {
         "title": "SaveTube",
+        "width": 600,
+        "height": 400,
+        "maximize": false,
+        "resizable": false,
         "console": false
     }
 }
