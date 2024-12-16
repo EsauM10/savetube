@@ -1,10 +1,11 @@
 import "./App.css";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import TextInput from "./components/TextInput";
-import { socket } from "./hooks/useOxygen";
+import { initOxygen, invoke } from "oxygenio";
 import VideoInfo from "./components/VideoInfo";
 import { VideoInfoDto } from "./entities";
 
+initOxygen()
 
 function App() {
   const [videoData, setVideoData] = useState<VideoInfoDto | null>(null);
@@ -12,22 +13,12 @@ function App() {
 
   const handleOnSearch = (url: string) => {
     setVideoData(null);
-    socket.emit("search", url);
     setIsLoading(true);
+
+    invoke<VideoInfoDto>("search", url)
+    .then(res => setVideoData(res))
+    .finally(() => setIsLoading(false));
   };
-
-  useEffect(() => {
-    function onSearchResponse(data: VideoInfoDto) {
-      setIsLoading(false);
-      setVideoData(data);
-    }
-
-    socket.on("search-response", onSearchResponse);
-
-    return () => {
-      socket.off("search-response", onSearchResponse);
-    };
-  }, []);
 
   return (
     <div className="home">

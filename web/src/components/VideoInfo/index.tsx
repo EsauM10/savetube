@@ -3,7 +3,7 @@ import ResolutionSelector from "../ResolutionSelector";
 import { VideoInfoDto, VideoResolution } from "../../entities";
 import { useEffect, useState } from "react";
 import ProgressBar from "../ProgressBar";
-import { socket } from "../../hooks/useOxygen";
+import { invoke, onEvent, offEvent } from "oxygenio";
 
 interface VideoInfoProps {
   data: VideoInfoDto;
@@ -16,7 +16,7 @@ export default function VideoInfoCard({ data }: VideoInfoProps) {
 
   const handleOnDownload = () => {
     setIsDownloading(true);
-    socket.emit("download", resolution.value);
+    invoke("download", resolution.value);
   };
 
   const handleOnChange = (resolutionValue: number) => {
@@ -34,10 +34,10 @@ export default function VideoInfoCard({ data }: VideoInfoProps) {
       setDownloadProgress(value)
     }
 
-    socket.on("progress", onDownloadProgress);
+    onEvent("progress", onDownloadProgress);
 
     return () => {
-      socket.off("progress", onDownloadProgress);
+      offEvent("progress", onDownloadProgress);
     };
   }, []);
 

@@ -14,8 +14,7 @@ def download_video(resolution: int):
 @app.on
 def search(url: str):
     youtube.load(url)
-    app.emit('search-response', youtube.metadata)
-
+    return youtube.metadata
 
 @app.on
 def download(resolution: int):
