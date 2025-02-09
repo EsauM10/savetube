@@ -5,7 +5,7 @@ interface ResolutionSelectorProps {
   selected: VideoResolution;
   resolutions: VideoResolution[];
   onChange: (value: number) => void;
-  onDownload: () => void;
+  onDownload: VoidFunction;
 }
 
 export default function ResolutionSelector({
